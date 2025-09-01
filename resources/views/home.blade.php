@@ -1,16 +1,11 @@
-{{-- resources/views/home.blade.php --}}
-@extends('layouts.app') {{-- if you’re using Jetstream/Blade layout --}}
-
-@section('content')
-<!-- banner -->
+<x-app-layout>
+    <!-- banner -->
 <section class="relative bg-black text-white text-center">
-  <img src="{{ asset('images/Emerald_earrings-Header.jpg') }}" alt="Jewelry" 
+  <img src="{{ asset('images/Emerald_earrings-Header.jpg') }}" alt="Jewelry"
        class="w-full object-cover h-60 sm:h-96 md:h-[600px] opacity-70" />
   <div class="absolute inset-0 flex flex-col justify-center items-center px-5 text-center pt-20 sm:pt-30 md:pt-36">
-    <h1 class="text-lg sm:text-2xl md:text-4xl font-bold mb-4">
-      HAPPINESS COMES IN THE BOX OF JEWELRY
-    </h1>
-    <a href="{{ url('/rings') }}" 
+    <h1 class="text-lg sm:text-2xl md:text-4xl font-bold mb-4">HAPPINESS COMES IN THE BOX OF JEWELRY</h1>
+    <a href="{{ url('rings') }}" 
        class="mt-2 px-6 py-2 bg-white text-black font-semibold rounded shadow-md transition duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg">
        Explore Now
     </a>
@@ -41,10 +36,10 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
     @php
       $categories = [
-        ['img' => 'c1.png', 'title' => 'Rings', 'desc' => 'Stunning', 'link' => '/rings'],
-        ['img' => 'c2.png', 'title' => 'Pendants', 'desc' => 'Elegant', 'link' => '/pendants'],
-        ['img' => 'c3.png', 'title' => 'Earrings', 'desc' => 'Elegant', 'link' => '/earings'],
-        ['img' => 'c4.png', 'title' => 'Bracelets', 'desc' => 'Stylish', 'link' => '/bracelets'],
+        ['img' => 'c1.png', 'title' => 'Rings', 'desc' => 'Stunning', 'link' => 'rings'],
+        ['img' => 'c2.png', 'title' => 'Pendants', 'desc' => 'Elegant', 'link' => 'pendants'],
+        ['img' => 'c3.png', 'title' => 'Earrings', 'desc' => 'Elegant', 'link' => 'earrings'],
+        ['img' => 'c4.png', 'title' => 'Bracelets', 'desc' => 'Stylish', 'link' => 'bracelets'],
       ];
     @endphp
 
@@ -67,9 +62,9 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     @php
       $items = [
-        ['img' => 'hring.jpg', 'desc' => 'Natural Garnet', 'name' => 'Red Garnet Ring', 'price' => 'Rs 12,500.00', 'link' => '/rings'],
-        ['img' => 'hpendant.jpg', 'desc' => 'Topaz, Amethyst, Garnet, Citrine', 'name' => 'Multi-Coloured Gemstones Pendant', 'price' => 'Rs 22,000.00', 'link' => '/pendants'],
-        ['img' => 'hear.jpg', 'desc' => 'Blue Topaz', 'name' => 'Cocktail Drop Earrings', 'price' => 'Rs 17,200.00', 'link' => '/earings'],
+        ['img' => 'hring.jpg', 'desc' => 'Natural Garnet', 'name' => 'Red Garnet Ring', 'price' => 'Rs 12,500.00', 'link' => 'rings'],
+        ['img' => 'hpendant.jpg', 'desc' => 'Topaz, Amethyst, Garnet, Citrine', 'name' => 'Multi-Coloured Gemstones Pendant', 'price' => 'Rs 22,000.00', 'link' => 'pendants'],
+        ['img' => 'hear.jpg', 'desc' => 'Blue Topaz', 'name' => 'Cocktail Drop Earrings', 'price' => 'Rs 17,200.00', 'link' => 'earrings'],
       ];
     @endphp
 
@@ -86,5 +81,5 @@
     @endforeach
   </div>
 </section>
-@endsection
 
+</x-app-layout>

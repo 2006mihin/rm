@@ -15,31 +15,29 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 
-
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-
-    
     public function register(): void
     {
+        // Use our custom login response handler
         $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
     }
-    
 
     /**
      * Bootstrap any application services.
      */
     public function boot(): void
     {
-        // your existing code unchanged
+        // User actions
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
+        // Rate limiting
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
             return Limit::perMinute(5)->by($throttleKey);
@@ -49,7 +47,11 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
+        // Auth views
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::registerView(fn () => view('auth.register'));
+
+        // 👇 This forces Fortify to redirect to /home instead of /dashboard
+        Fortify::redirects('login', '/home');
     }
 }

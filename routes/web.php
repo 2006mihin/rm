@@ -4,26 +4,35 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
 // Public landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Normal user dashboard (Jetstream default)
+// Normal user home (after login)
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
+    // This route exists because Jetstream/redirect expects 'dashboard'
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $user = auth()->user();
+
+        // If client, redirect to /home
+        if ($user && $user->role !== 'admin') {
+            return redirect()->route('home');
+        }
+
+        // If somehow admin ends up here, redirect to admin dashboard
+        return redirect()->route('admin.dashboard');
     })->name('dashboard');
+
+    // Home page for clients
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
 });
 
 // Admin-only dashboard & pages
@@ -31,7 +40,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'admin', // your custom admin middleware
+    'admin', // custom admin middleware
 ])->prefix('admin')->name('admin.')->group(function () {
 
     // Admin Dashboard
@@ -42,8 +51,8 @@ Route::middleware([
     Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
 
     // Users CRUD
-    Route::get('/users', [UserController::class,'index'])->name('users.index');         // Show all users / edit form
-    Route::post('/users', [UserController::class,'store'])->name('users.store');        // Add new user
-    Route::put('/users/{user}', [UserController::class,'update'])->name('users.update'); // Update user
-    Route::delete('/users/{user}', [UserController::class,'destroy'])->name('users.destroy'); // Delete user
+    Route::get('/users', [UserController::class,'index'])->name('users.index');
+    Route::post('/users', [UserController::class,'store'])->name('users.store');
+    Route::put('/users/{user}', [UserController::class,'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class,'destroy'])->name('users.destroy');
 });
