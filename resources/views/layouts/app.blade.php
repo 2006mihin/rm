@@ -21,7 +21,9 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+            
+            {{-- 🔹 Replace Jetstream nav with your custom header --}}
+           
 
             <!-- Page Heading -->
             @if (isset($header))

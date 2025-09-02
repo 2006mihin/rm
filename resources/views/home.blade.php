@@ -1,4 +1,5 @@
 <x-app-layout>
+@include('layouts.header')
     <!-- banner -->
 <section class="relative bg-black text-white text-center">
   <img src="{{ asset('images/Emerald_earrings-Header.jpg') }}" alt="Jewelry"
