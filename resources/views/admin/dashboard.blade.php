@@ -22,7 +22,7 @@
             <!-- Dashboard Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Total Orders -->
-                <a href="{{ route('admin.orders') }}"
+                <a href="{{ route('admin.orders')  }}"
                    class="group relative block bg-white rounded-xl shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl">
                     <span class="absolute top-0 left-0 w-full h-1 bg-blue-500 rounded-t-xl transition-all duration-300 group-hover:h-2"></span>
                     <h3 class="text-gray-500 text-sm uppercase tracking-wide mt-2 group-hover:text-blue-600">Total Orders</h3>
